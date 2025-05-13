@@ -1,29 +1,31 @@
 package com.ecommerce.controller;
 
-import com.transfer.api.controller.request.TransferRequestDTO;
-import com.transfer.api.controller.response.TransferResponseAPIResponseEntity;
-import com.transfer.api.controller.response.TransferResponseDTO;
-import com.transfer.api.service.facade.TransferFacade;
+import com.ecommerce.controller.response.ClientesResponseDTO;
+import com.ecommerce.service.cliente.ClientesService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
-@RequestMapping(ClientesController.URI_TRANSFER)
+@RequestMapping("/clientes")
 public class ClientesController {
 
-    public static final String URI_TRANSFER = "/transfer";
+    private final ClientesService clientesService;
 
     @Autowired
-    private TransferFacade transfer;
+    public ClientesController(ClientesService clientesService) {
+        this.clientesService = clientesService;
+    }
 
-    @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<TransferResponseDTO> makeTransfer(@RequestBody TransferRequestDTO transferRequestDTO) {
-        return TransferResponseAPIResponseEntity.getTransferResponseDTOResponseEntity(
-                transfer.makeTransfer(transferRequestDTO));
+    @GetMapping(value = "/fieis", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<ClientesResponseDTO>> listarClientesFieis() {
+        List<ClientesResponseDTO> response = clientesService.clientesFieis();
+        return ResponseEntity.ok(response);
     }
 }
