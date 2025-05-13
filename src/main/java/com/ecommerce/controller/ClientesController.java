@@ -32,7 +32,7 @@ public class ClientesController {
     }
 
     @GetMapping("/tipo/{cpf}")
-    public ResponseEntity<VinhoResponseDTO> recomendarVinhoPorTipo(@PathVariable Long cpf) {
+    public ResponseEntity<VinhoResponseDTO> recomendarVinhoPorTipo(@PathVariable String cpf) {
         Optional<VinhoResponseDTO> recomendacaoOptional = clientesService.recomendarVinhoPorTipo(cpf);
         return recomendacaoOptional.map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
     }

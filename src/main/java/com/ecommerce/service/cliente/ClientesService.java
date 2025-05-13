@@ -8,5 +8,5 @@ import java.util.Optional;
 
 public interface ClientesService {
     List<ClientesResponseDTO> clientesFieis();
-    Optional<VinhoResponseDTO> recomendarVinhoPorTipo(final Long cpf);
+    Optional<VinhoResponseDTO> recomendarVinhoPorTipo(final String cpf);
 }
