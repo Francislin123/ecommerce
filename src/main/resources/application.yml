@@ -1,0 +1,34 @@
+info:
+  component: ecommerce-api
+  project:
+    name: ecommerce-api
+    version: 0.0.1-SNAPSHOT
+
+server:
+  port: 8077
+  contextPath: /ecommerce-api
+  tomcat:
+    basedir: /tmp/tomcat
+
+management:
+  security:
+    enabled: false
+
+spring:
+  application:
+    name: ecommerce-api
+
+  jackson:
+    default-property-inclusion: non_null
+
+  logging:
+  level:
+    org:
+      hibernate:
+        type: trace
+
+    tomcat:
+      max-wait: 60000
+      initial-size: 10
+      max-active: 150
+      test-on-borrow: true
