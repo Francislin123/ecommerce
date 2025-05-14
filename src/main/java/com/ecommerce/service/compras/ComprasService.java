@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface ComprasService {
     List<CompraDetalhadaResponseDTO> listarComprasOrdenadas();
+    CompraDetalhadaResponseDTO maiorCompraDoAno(int ano);
 }

@@ -1,4 +1,4 @@
-package com.ecommerce.service.integration.compras;
+package com.ecommerce.service.integracao.compras;
 
 import com.ecommerce.controller.clientes.response.VinhoResponseDTO;
 

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -28,5 +29,10 @@ public class ComprasController {
     public ResponseEntity<List<CompraDetalhadaResponseDTO>> listarComprasOrdenadas() {
         List<CompraDetalhadaResponseDTO> response = comprasService.listarComprasOrdenadas();
         return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/maior_compra/{ano}")
+    public CompraDetalhadaResponseDTO maiorCompra(@PathVariable int ano) {
+        return comprasService.maiorCompraDoAno(ano);
     }
 }

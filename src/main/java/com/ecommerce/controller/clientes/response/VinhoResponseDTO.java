@@ -19,10 +19,10 @@ public class VinhoResponseDTO {
     private String safra;
 
     @SerializedName("ano_compra")
-    private int anoCompra;
+    private String anoCompra;
 
     @Builder
-    public VinhoResponseDTO(String codigo, String tipoVinho, double preco, String safra, int anoCompra) {
+    public VinhoResponseDTO(String codigo, String tipoVinho, double preco, String safra, String anoCompra) {
         this.codigo = codigo;
         this.tipoVinho = tipoVinho;
         this.preco = preco;

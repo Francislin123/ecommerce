@@ -1,4 +1,4 @@
-package com.ecommerce.service.integration.client;
+package com.ecommerce.service.integracao.client;
 
 import com.ecommerce.controller.clientes.response.ClientesResponseDTO;
 

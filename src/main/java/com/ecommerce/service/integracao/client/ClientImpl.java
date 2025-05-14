@@ -1,6 +1,6 @@
-package com.ecommerce.service.integration.compras;
+package com.ecommerce.service.integracao.client;
 
-import com.ecommerce.controller.clientes.response.VinhoResponseDTO;
+import com.ecommerce.controller.clientes.response.ClientesResponseDTO;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import lombok.extern.slf4j.Slf4j;
@@ -20,19 +20,23 @@ import java.util.List;
 
 @Service
 @Slf4j
-public class VinhoClientImpl implements VinhoClient {
+public class ClientImpl implements Client {
 
-    @Value("${url.produtos}")
-    private String uriVinhos;
+    @Value("${url.clientes}")
+    private String uriClientes;
 
     private final Gson gson = new Gson();
 
     private static final HttpClient httpClient =
-            HttpClient.newBuilder().version(HttpClient.Version.HTTP_1_1).connectTimeout(Duration.ofSeconds(10)).build();
+            HttpClient
+                    .newBuilder()
+                    .version(HttpClient.Version.HTTP_1_1)
+                    .connectTimeout(Duration.ofSeconds(10))
+                    .build();
 
     @Override
-    @Cacheable("recomendacaoDeVinho")
-    public List<VinhoResponseDTO> recomendacaoDeVinho() {
+    @Cacheable("clientesFieis")
+    public List<ClientesResponseDTO> clientClientesFieis() {
 
         log.info("Inicio da requisição");
 
@@ -40,17 +44,19 @@ public class VinhoClientImpl implements VinhoClient {
 
         try {
 
-            HttpRequest request = HttpRequest.newBuilder().GET().uri(URI.create(uriVinhos)).build();
+            HttpRequest request = HttpRequest.newBuilder().GET().uri(URI.create(uriClientes)).build();
 
             final HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
 
+            // print status code
             final int statusCode = response.statusCode();
 
             if (statusCode == 404) {
-                log.info("Cardapio de vinhos não encontrados");
+                log.info("Clientes não encontrados");
                 return new ArrayList<>();
             }
 
+            // print response body
             bodyResultFinal = response.body();
 
         } catch (IOException | InterruptedException e) {
@@ -58,10 +64,10 @@ public class VinhoClientImpl implements VinhoClient {
             throw new RuntimeException(e);
         }
 
-        Type listType = new TypeToken<List<VinhoResponseDTO>>() {
+        Type listType = new TypeToken<List<ClientesResponseDTO>>() {
         }.getType();
-        List<VinhoResponseDTO> lista = this.gson.fromJson(bodyResultFinal, listType);
-        log.info("Cardapio de vinhos retornado.");
+        List<ClientesResponseDTO> lista = this.gson.fromJson(bodyResultFinal, listType);
+        log.info("Clientes retornados com sucesso");
         return lista;
     }
 }
