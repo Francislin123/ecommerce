@@ -1,5 +1,5 @@
-# Ecommerce API
-- O projeto é responsável por gerenciar o fluxo de compras dos clientes
+# Microsserviço de Compras de Vinhos API
+- Microsserviço de Compras de Vinhos
 
 # 🛠️ Tecnologias Utilizadas
 

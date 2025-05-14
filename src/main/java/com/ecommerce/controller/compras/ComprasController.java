@@ -7,16 +7,12 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
 @RestController
-@RequestMapping(ComprasController.URI_COMPLAS)
 public class ComprasController {
-
-    public static final String URI_COMPLAS = "/compras";
 
     private ComprasService comprasService;
 
@@ -25,7 +21,7 @@ public class ComprasController {
         this.comprasService = comprasService;
     }
 
-    @GetMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/compras", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<CompraDetalhadaResponseDTO>> listarComprasOrdenadas() {
         List<CompraDetalhadaResponseDTO> response = comprasService.listarComprasOrdenadas();
         return ResponseEntity.ok(response);
