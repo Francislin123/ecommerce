@@ -1,4 +1,4 @@
-package com.ecommerce.controller.response;
+package com.ecommerce.controller.clientes.response;
 
 import lombok.Builder;
 import lombok.Data;

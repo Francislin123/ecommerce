@@ -1,7 +1,7 @@
-package com.ecommerce.service.cliente;
+package com.ecommerce.service.clientes;
 
-import com.ecommerce.controller.response.ClientesResponseDTO;
-import com.ecommerce.controller.response.VinhoResponseDTO;
+import com.ecommerce.controller.clientes.response.ClientesResponseDTO;
+import com.ecommerce.controller.clientes.response.VinhoResponseDTO;
 
 import java.util.List;
 import java.util.Optional;

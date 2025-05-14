@@ -1,6 +1,6 @@
 package com.ecommerce.service.integration.client;
 
-import com.ecommerce.controller.response.ClientesResponseDTO;
+import com.ecommerce.controller.clientes.response.ClientesResponseDTO;
 
 import java.util.List;
 

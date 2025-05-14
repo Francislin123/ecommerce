@@ -1,11 +1,11 @@
 package com.ecommerce.service.integration.compras;
 
-import com.ecommerce.controller.response.VinhoResponseDTO;
+import com.ecommerce.controller.clientes.response.VinhoResponseDTO;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -19,19 +19,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@Slf4j
 public class VinhoClientImpl implements VinhoClient {
-
-    private static final Logger log = LoggerFactory.getLogger(VinhoClientImpl.class);
 
     @Value("${url.produtos}")
     private String uriVinhos;
 
     private final Gson gson = new Gson();
 
-    private static final HttpClient httpClient = HttpClient.newBuilder().version(HttpClient.Version.HTTP_1_1).connectTimeout(Duration.ofSeconds(10)).build();
+    private static final HttpClient httpClient =
+            HttpClient.newBuilder().version(HttpClient.Version.HTTP_1_1).connectTimeout(Duration.ofSeconds(10)).build();
 
     @Override
+    @Cacheable("recomendacaoDeVinho")
     public List<VinhoResponseDTO> recomendacaoDeVinho() {
+
+        log.info("Inicio da requisição");
 
         final String bodyResultFinal;
 
@@ -41,7 +44,6 @@ public class VinhoClientImpl implements VinhoClient {
 
             final HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
 
-            // print status code
             final int statusCode = response.statusCode();
 
             if (statusCode == 404) {
@@ -49,7 +51,6 @@ public class VinhoClientImpl implements VinhoClient {
                 return new ArrayList<>();
             }
 
-            // print response body
             bodyResultFinal = response.body();
 
         } catch (IOException | InterruptedException e) {

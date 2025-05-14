@@ -1,10 +1,11 @@
 package com.ecommerce.service.integration.client;
 
-import com.ecommerce.controller.response.ClientesResponseDTO;
+import com.ecommerce.controller.clientes.response.ClientesResponseDTO;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -34,7 +35,10 @@ public class ClientImpl implements Client {
                     .build();
 
     @Override
+    @Cacheable("clientesFieis")
     public List<ClientesResponseDTO> clientClientesFieis() {
+
+        log.info("Inicio da requisição");
 
         final String bodyResultFinal;
 

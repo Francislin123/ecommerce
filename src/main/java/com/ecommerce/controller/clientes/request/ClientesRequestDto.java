@@ -1,6 +1,5 @@
-package com.ecommerce.controller.request;
+package com.ecommerce.controller.clientes.request;
 
-import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 

@@ -1,8 +1,8 @@
-package com.ecommerce.controller;
+package com.ecommerce.controller.clientes;
 
-import com.ecommerce.controller.response.ClientesResponseDTO;
-import com.ecommerce.controller.response.VinhoResponseDTO;
-import com.ecommerce.service.cliente.ClientesService;
+import com.ecommerce.controller.clientes.response.ClientesResponseDTO;
+import com.ecommerce.controller.clientes.response.VinhoResponseDTO;
+import com.ecommerce.service.clientes.ClientesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -15,8 +15,10 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/clientes")
+@RequestMapping(ClientesController.URI_CLIENTES)
 public class ClientesController {
+
+    public static final String URI_CLIENTES = "/clientes";
 
     private final ClientesService clientesService;
 
@@ -25,13 +27,13 @@ public class ClientesController {
         this.clientesService = clientesService;
     }
 
-    @GetMapping(value = "/fieis", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/clientes-fieis", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<ClientesResponseDTO>> listarClientesFieis() {
         List<ClientesResponseDTO> response = clientesService.clientesFieis();
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping("/tipo/{cpf}")
+    @GetMapping("/recomendacao/cliente/tipo/{cpf}")
     public ResponseEntity<VinhoResponseDTO> recomendarVinhoPorTipo(@PathVariable String cpf) {
         Optional<VinhoResponseDTO> recomendacaoOptional = clientesService.recomendarVinhoPorTipo(cpf);
         return recomendacaoOptional.map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());

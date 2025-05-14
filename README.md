@@ -1,19 +1,30 @@
 # Ecommerce API
 - O projeto é responsável por gerenciar o fluxo de compras dos clientes
 
-# Technologies
-- Java 17;
-- Springframework Boot 3.2.4;
-- HttpClient (Integration);
-- Lombok;
-- Google gson 2.10.1;
-- Spring doc open api 2.5.0;
-- Unit Test: Junit 4.13.2;
+# 🛠️ Tecnologias Utilizadas
 
-### To run the application just follow the steps below.
-- 1 - Enter the folder where the project jar is
-- 2 - Execute the following command by cmd
-- 3 - java -jar transfer-api-0.0.1-SNAPSHOT.jar --spring.config.location = file: C: /Config/application.yml
+- Spring Boot 3.4.5
+- HTTP Client (para integrações)
+- Lombok
+- Gson 2.10.1 (Google)
+- SpringDoc OpenAPI 2.5.0
+- JUnit 4.13.2 (para testes unitários)
+- Logs (Slf4j)
+- Spring Cache com Caffeine – utilizado para cachear as respostas dos endpoints, 
+- (listarClientesFieis/recomendacaoDeVinho)
 
-### Documentation for testing api (Swagger)
+# ✅ Requisitos para Rodar o Projeto
+
+- Para executar este projeto corretamente, é necessário que sua máquina atenda aos seguintes requisitos:
+- Java JDK 17 ou superior instalado
+- IntelliJ IDEA 2025 (recomendado): facilita a configuração do projeto e a integração com ferramentas do 
+- ecossistema Spring
+
+# Para executar o aplicativo basta seguir os passos abaixo.
+
+- 1 - Entre na pasta onde está o jar do projeto
+- 2 - Execute o seguinte comando com cmd
+- 3 - java -jar ecommerce-0.0.1-SNAPSHOT.jar --spring.config.location = file: C: /Config/application.yml
+
+# Documentação para testar a API (Swagger)
 - http://localhost:8077/api/v1/swagger-ui/index.html#/

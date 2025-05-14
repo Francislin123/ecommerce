@@ -1,6 +1,6 @@
 package com.ecommerce.service.integration.compras;
 
-import com.ecommerce.controller.response.VinhoResponseDTO;
+import com.ecommerce.controller.clientes.response.VinhoResponseDTO;
 
 import java.util.List;
 

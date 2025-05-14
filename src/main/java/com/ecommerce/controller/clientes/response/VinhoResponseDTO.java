@@ -1,4 +1,4 @@
-package com.ecommerce.controller.response;
+package com.ecommerce.controller.clientes.response;
 
 import com.google.gson.annotations.SerializedName;
 import lombok.Builder;
@@ -28,5 +28,10 @@ public class VinhoResponseDTO {
         this.preco = preco;
         this.safra = safra;
         this.anoCompra = anoCompra;
+    }
+
+    public VinhoResponseDTO(String codigo, String tipoVinho) {
+        this.codigo = codigo;
+        this.tipoVinho = tipoVinho;
     }
 }
