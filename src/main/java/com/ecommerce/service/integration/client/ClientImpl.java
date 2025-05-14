@@ -60,7 +60,8 @@ public class ClientImpl implements Client {
             throw new RuntimeException(e);
         }
 
-        Type listType = new TypeToken<List<ClientesResponseDTO>>() {}.getType();
+        Type listType = new TypeToken<List<ClientesResponseDTO>>() {
+        }.getType();
         List<ClientesResponseDTO> lista = this.gson.fromJson(bodyResultFinal, listType);
         log.info("Clientes retornados com sucesso");
         return lista;

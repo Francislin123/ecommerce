@@ -3,7 +3,8 @@ package com.ecommerce.service.integration.compras;
 import com.ecommerce.controller.response.VinhoResponseDTO;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -18,19 +19,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-@Slf4j
 public class VinhoClientImpl implements VinhoClient {
+
+    private static final Logger log = LoggerFactory.getLogger(VinhoClientImpl.class);
 
     @Value("${url.produtos}")
     private String uriVinhos;
 
     private final Gson gson = new Gson();
 
-    private static final HttpClient httpClient = HttpClient
-            .newBuilder()
-            .version(HttpClient.Version.HTTP_1_1)
-            .connectTimeout(Duration.ofSeconds(10))
-            .build();
+    private static final HttpClient httpClient = HttpClient.newBuilder().version(HttpClient.Version.HTTP_1_1).connectTimeout(Duration.ofSeconds(10)).build();
 
     @Override
     public List<VinhoResponseDTO> recomendacaoDeVinho() {
@@ -62,7 +60,7 @@ public class VinhoClientImpl implements VinhoClient {
         Type listType = new TypeToken<List<VinhoResponseDTO>>() {
         }.getType();
         List<VinhoResponseDTO> lista = this.gson.fromJson(bodyResultFinal, listType);
-        log.info("Cardapio de vinhos não retornados.");
+        log.info("Cardapio de vinhos retornado.");
         return lista;
     }
 }
