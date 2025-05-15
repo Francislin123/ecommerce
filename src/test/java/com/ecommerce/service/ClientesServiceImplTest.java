@@ -103,7 +103,7 @@ class ClientesServiceImplTest {
             clientesService.recomendarVinhoPorTipo("000");
         });
 
-        assertEquals("Cliente não encontrado", exception.getMessage());
+        assertEquals("Cliente não encontrado para o CPF: " + "000" , exception.getMessage());
     }
 
     @Test

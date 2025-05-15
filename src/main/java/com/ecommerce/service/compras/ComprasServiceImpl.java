@@ -32,8 +32,6 @@ public class ComprasServiceImpl implements ComprasService {
 
     private GetStringVinhoResponse vinhoMapper;
 
-    private final String respostaCompraNaoEncontrada = "Nenhuma compra encontrada para o ano ";
-
     @Autowired
     public ComprasServiceImpl(Client clienteClient, VinhoClient vinhoClient, ProcessarComprasAnual relatorioAnual,
                               GetStringVinhoResponse vinhoMapper) {
