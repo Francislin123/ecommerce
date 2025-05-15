@@ -28,3 +28,6 @@
 
 # Documentação para testar a API (Swagger)
 - http://localhost:8077/api/v1/swagger-ui/index.html#/
+
+### Arquitetura de solução baseada em Circuit Breaker
+![Captura de Tela 2019-05-12 às 15 18 49](https://res.cloudinary.com/drc5ukr93/image/upload/v1725575533/q11utyqc1rey1u3swuue.png)
