@@ -3,10 +3,12 @@ package com.ecommerce.service.compras;
 import com.ecommerce.controller.clientes.response.ClientesResponseDTO;
 import com.ecommerce.controller.clientes.response.VinhoResponseDTO;
 import com.ecommerce.controller.compras.request.CompraDetalhadaResponseDTO;
+import com.ecommerce.exception.CompraNaoEncontradaException;
 import com.ecommerce.service.auxiliar.GetStringVinhoResponse;
 import com.ecommerce.service.auxiliar.ProcessarComprasAnual;
 import com.ecommerce.service.integracao.client.Client;
 import com.ecommerce.service.integracao.compras.VinhoClient;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,21 +21,27 @@ import java.util.stream.Collectors;
 
 @Service
 @Slf4j
+@RequiredArgsConstructor
 public class ComprasServiceImpl implements ComprasService {
 
-    @Autowired
     private Client clienteClient;
 
-    @Autowired
     private VinhoClient vinhoClient;
 
-    @Autowired
     private ProcessarComprasAnual relatorioAnual;
 
-    @Autowired
-    private GetStringVinhoResponse getVinhoResponse;
+    private GetStringVinhoResponse vinhoMapper;
 
     private final String respostaCompraNaoEncontrada = "Nenhuma compra encontrada para o ano ";
+
+    @Autowired
+    public ComprasServiceImpl(Client clienteClient, VinhoClient vinhoClient, ProcessarComprasAnual relatorioAnual,
+                              GetStringVinhoResponse vinhoMapper) {
+        this.clienteClient = clienteClient;
+        this.vinhoClient = vinhoClient;
+        this.relatorioAnual = relatorioAnual;
+        this.vinhoMapper = vinhoMapper;
+    }
 
     @Override
     public List<CompraDetalhadaResponseDTO> listarComprasOrdenadas() {
@@ -47,7 +55,7 @@ public class ComprasServiceImpl implements ComprasService {
         log.debug("Vinhedos obtidos: {}", vinhos.size());
 
         final Map<String, VinhoResponseDTO> vinhosPorCodigo =
-                this.getVinhoResponse.getStringVinhoResponseDTOMap(vinhos);
+                this.vinhoMapper.getStringVinhoResponseDTOMap(vinhos);
 
         log.debug("Mapa de vinhos por código gerado com sucesso.");
 
@@ -86,7 +94,7 @@ public class ComprasServiceImpl implements ComprasService {
                 .max(Comparator.comparingDouble(CompraDetalhadaResponseDTO::getValorTotal))
                 .orElseThrow(() -> {
                     log.warn("Nenhuma compra encontrada para o ano: {}", ano);
-                    return new RuntimeException(respostaCompraNaoEncontrada + ano);
+                    throw new CompraNaoEncontradaException(ano);
                 });
     }
 }
