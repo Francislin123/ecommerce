@@ -3,7 +3,7 @@ package com.ecommerce.service.auxiliar;
 import com.ecommerce.controller.clientes.response.ClientesResponseDTO;
 import com.ecommerce.controller.clientes.response.CompraResponseDTO;
 import com.ecommerce.controller.clientes.response.VinhoResponseDTO;
-import com.ecommerce.controller.compras.request.CompraDetalhadaResponseDTO;
+import com.ecommerce.controller.compras.response.CompraDetalhadaResponseDTO;
 import com.ecommerce.service.mapper.CompraDetalhadaMapper;
 import org.springframework.stereotype.Component;
 

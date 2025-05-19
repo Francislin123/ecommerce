@@ -87,7 +87,7 @@ class ClientesServiceImplTest {
 
         when(clienteClient.clientClientesFieis()).thenReturn(clientes);
         when(vinhoClient.recomendacaoDeVinho()).thenReturn(vinhos);
-        when(recomendadorDeVinhos.recomendar(compras, vinhos)).thenReturn(vinhoRecomendado);
+        when(recomendadorDeVinhos.recomendar(compras, vinhos)).thenReturn(Optional.of(vinhoRecomendado));
 
         Optional<VinhoResponseDTO> resultado = clientesService.recomendarVinhoPorTipo(cpf);
 

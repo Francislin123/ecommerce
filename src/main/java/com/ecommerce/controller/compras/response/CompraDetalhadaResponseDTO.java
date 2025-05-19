@@ -1,4 +1,4 @@
-package com.ecommerce.controller.compras.request;
+package com.ecommerce.controller.compras.response;
 
 import lombok.Getter;
 import lombok.Setter;

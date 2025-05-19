@@ -1,6 +1,6 @@
 package com.ecommerce.service.compras;
 
-import com.ecommerce.controller.compras.request.CompraDetalhadaResponseDTO;
+import com.ecommerce.controller.compras.response.CompraDetalhadaResponseDTO;
 
 import java.util.List;
 

@@ -39,19 +39,16 @@ public class ClientesServiceImpl implements ClientesService {
         List<ClientesResponseDTO> clientes = clienteClient.clientClientesFieis();
         log.debug("Total de clientes recuperados: {}", clientes.size());
 
-        List<ClientesResponseDTO> top3Clientes = clientes.stream()
-                .sorted((p1, p2) -> {
-                    int total1 = p1.getCompras().stream().mapToInt(CompraResponseDTO::getQuantidade).sum();
-                    int total2 = p2.getCompras().stream().mapToInt(CompraResponseDTO::getQuantidade).sum();
+        List<ClientesResponseDTO> top3Clientes = clientes.stream().sorted((p1, p2) -> {
+            int total1 = p1.getCompras().stream().mapToInt(CompraResponseDTO::getQuantidade).sum();
+            int total2 = p2.getCompras().stream().mapToInt(CompraResponseDTO::getQuantidade).sum();
 
-                    int recorrencia1 = (int) p1.getCompras().stream().map(CompraResponseDTO::getCodigo).distinct().count();
-                    int recorrencia2 = (int) p2.getCompras().stream().map(CompraResponseDTO::getCodigo).distinct().count();
+            int recorrencia1 = (int) p1.getCompras().stream().map(CompraResponseDTO::getCodigo).distinct().count();
+            int recorrencia2 = (int) p2.getCompras().stream().map(CompraResponseDTO::getCodigo).distinct().count();
 
-                    int comparacaoValor = Integer.compare(total2, total1);
-                    return comparacaoValor != 0 ? comparacaoValor : Integer.compare(recorrencia2, recorrencia1);
-                })
-                .limit(3)
-                .collect(Collectors.toList());
+            int comparacaoValor = Integer.compare(total2, total1);
+            return comparacaoValor != 0 ? comparacaoValor : Integer.compare(recorrencia2, recorrencia1);
+        }).limit(3).collect(Collectors.toList());
 
         log.debug("Top 3 clientes mais fiéis identificados: {}", top3Clientes);
 
@@ -62,13 +59,10 @@ public class ClientesServiceImpl implements ClientesService {
     public Optional<VinhoResponseDTO> recomendarVinhoPorTipo(final String cpf) {
         log.debug("Iniciando recomendação de vinho para o CPF: {}", cpf);
 
-        ClientesResponseDTO cliente = clienteClient.clientClientesFieis().stream()
-                .filter(c -> cpf.equals(c.getCpf()))
-                .findFirst()
-                .orElseThrow(() -> {
-                    log.warn("Cliente não encontrado para CPF: {}", cpf);
-                    throw new ClienteNaoEncontradoException(cpf);
-                });
+        ClientesResponseDTO cliente = clienteClient.clientClientesFieis().stream().filter(c -> cpf.equals(c.getCpf())).findFirst().orElseThrow(() -> {
+            log.warn("Cliente não encontrado para CPF: {}", cpf);
+            throw new ClienteNaoEncontradoException(cpf);
+        });
 
         log.debug("Cliente encontrado: {}", cliente.getNome());
 
@@ -76,15 +70,6 @@ public class ClientesServiceImpl implements ClientesService {
         List<VinhoResponseDTO> vinhosDisponiveis = vinhoClient.recomendacaoDeVinho();
 
         log.debug("Total de vinhos disponíveis para recomendação: {}", vinhosDisponiveis.size());
-
-        VinhoResponseDTO recomendacao = recomendadorDeVinhos.recomendar(compras, vinhosDisponiveis);
-
-        if (recomendacao != null) {
-            log.debug("Recomendação de vinho gerada com sucesso: código {}", recomendacao.getCodigo());
-        } else {
-            log.debug("Nenhuma recomendação encontrada para o cliente.");
-        }
-
-        return Optional.ofNullable(recomendacao);
+        return recomendadorDeVinhos.recomendar(compras, vinhosDisponiveis);
     }
 }

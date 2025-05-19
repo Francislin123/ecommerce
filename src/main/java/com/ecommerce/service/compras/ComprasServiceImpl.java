@@ -2,7 +2,7 @@ package com.ecommerce.service.compras;
 
 import com.ecommerce.controller.clientes.response.ClientesResponseDTO;
 import com.ecommerce.controller.clientes.response.VinhoResponseDTO;
-import com.ecommerce.controller.compras.request.CompraDetalhadaResponseDTO;
+import com.ecommerce.controller.compras.response.CompraDetalhadaResponseDTO;
 import com.ecommerce.exception.CompraNaoEncontradaException;
 import com.ecommerce.service.auxiliar.GetStringVinhoResponse;
 import com.ecommerce.service.auxiliar.ProcessarComprasAnual;

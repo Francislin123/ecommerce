@@ -1,6 +1,6 @@
 package com.ecommerce.controller.compras;
 
-import com.ecommerce.controller.compras.request.CompraDetalhadaResponseDTO;
+import com.ecommerce.controller.compras.response.CompraDetalhadaResponseDTO;
 import com.ecommerce.service.compras.ComprasService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
