@@ -34,4 +34,15 @@ public class VinhoResponseDTO {
         this.codigo = codigo;
         this.tipoVinho = tipoVinho;
     }
+
+    @Override
+    public String toString() {
+        return "VinhoResponseDTO{" +
+                "codigo='" + codigo + '\'' +
+                ", tipoVinho='" + tipoVinho + '\'' +
+                ", preco=" + preco +
+                ", safra='" + safra + '\'' +
+                ", anoCompra='" + anoCompra + '\'' +
+                '}';
+    }
 }
