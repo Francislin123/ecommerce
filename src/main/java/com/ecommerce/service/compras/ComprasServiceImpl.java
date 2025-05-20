@@ -44,49 +44,49 @@ public class ComprasServiceImpl implements ComprasService {
     @Override
     public List<CompraDetalhadaResponseDTO> listarComprasOrdenadas() {
 
-        log.debug("Iniciando a listagem de compras ordenadas.");
+        log.info("Iniciando a listagem de compras ordenadas.");
 
         final List<ClientesResponseDTO> clientes = this.clienteClient.clientClientesFieis();
         final List<VinhoResponseDTO> vinhos = this.vinhoClient.recomendacaoDeVinho();
 
-        log.debug("Clientes obtidos: {}", clientes.size());
-        log.debug("Vinhedos obtidos: {}", vinhos.size());
+        log.info("Clientes obtidos: {}", clientes.size());
+        log.info("Vinhedos obtidos: {}", vinhos.size());
 
         final Map<String, VinhoResponseDTO> vinhosPorCodigo =
                 this.vinhoMapper.getStringVinhoResponseDTOMap(vinhos);
 
-        log.debug("Mapa de vinhos por código gerado com sucesso.");
+        log.info("Mapa de vinhos por código gerado com sucesso.");
 
         List<CompraDetalhadaResponseDTO> comprasDetalhadas =
                 this.relatorioAnual.getCompraDetalhadaResponseDTOS(clientes, vinhosPorCodigo);
 
-        log.debug("Total de compras detalhadas processadas: {}", comprasDetalhadas.size());
+        log.info("Total de compras detalhadas processadas: {}", comprasDetalhadas.size());
 
         return comprasDetalhadas;
     }
 
     @Override
     public CompraDetalhadaResponseDTO maiorCompraDoAno(final int ano) {
-        log.debug("Iniciando busca pela maior compra do ano: {}", ano);
+        log.info("Iniciando busca pela maior compra do ano: {}", ano);
 
         List<ClientesResponseDTO> clientes = this.clienteClient.clientClientesFieis();
-        log.debug("Total de clientes recuperados: {}", clientes.size());
+        log.info("Total de clientes recuperados: {}", clientes.size());
 
         List<VinhoResponseDTO> vinhos = this.vinhoClient.recomendacaoDeVinho();
-        log.debug("Total de vinhos recuperados: {}", vinhos.size());
+        log.info("Total de vinhos recuperados: {}", vinhos.size());
 
         Map<String, VinhoResponseDTO> vinhosPorCodigo = vinhos.stream()
                 .collect(Collectors.toMap(
                         v -> String.valueOf(v.getCodigo()),
                         v -> v
                 ));
-        log.debug("Mapeamento de vinhos por código concluído. Total mapeado: {}", vinhosPorCodigo.size());
+        log.info("Mapeamento de vinhos por código concluído. Total mapeado: {}", vinhosPorCodigo.size());
 
         List<CompraDetalhadaResponseDTO> comprasDetalhadas = new ArrayList<>();
 
-        log.debug("Processando compras detalhadas para o ano: {}", ano);
+        log.info("Processando compras detalhadas para o ano: {}", ano);
         relatorioAnual.processarComprasParaRelatorioAnual(ano, clientes, vinhosPorCodigo, comprasDetalhadas);
-        log.debug("Total de compras detalhadas processadas: {}", comprasDetalhadas.size());
+        log.info("Total de compras detalhadas processadas: {}", comprasDetalhadas.size());
 
         return comprasDetalhadas.stream()
                 .max(Comparator.comparingDouble(CompraDetalhadaResponseDTO::getValorTotal))
