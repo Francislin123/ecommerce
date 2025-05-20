@@ -1,4 +1,4 @@
-package com.ecommerce.auxiliar;
+package com.ecommerce.support;
 
 import com.ecommerce.controller.clientes.response.ClientesResponseDTO;
 import com.ecommerce.controller.clientes.response.CompraResponseDTO;

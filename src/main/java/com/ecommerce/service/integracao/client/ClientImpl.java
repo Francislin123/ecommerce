@@ -27,12 +27,23 @@ public class ClientImpl implements Client {
 
     private final Gson gson = new Gson();
 
-    private static final HttpClient httpClient =
-            HttpClient
-                    .newBuilder()
-                    .version(HttpClient.Version.HTTP_1_1)
-                    .connectTimeout(Duration.ofSeconds(10))
-                    .build();
+    private final HttpClient httpClient;
+
+    public ClientImpl() {
+        this.httpClient = HttpClient.newBuilder()
+                .version(HttpClient.Version.HTTP_1_1)
+                .connectTimeout(Duration.ofSeconds(10))
+                .build();
+    }
+
+    public ClientImpl(String uriClientes, HttpClient httpClient) {
+        this.uriClientes = uriClientes;
+        this.httpClient = httpClient;
+    }
+
+    public ClientImpl(HttpClient httpClient) {
+        this.httpClient = httpClient;
+    }
 
     @Override
     @Cacheable("clientesFieis")

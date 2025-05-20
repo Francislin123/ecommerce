@@ -27,8 +27,23 @@ public class VinhoClientImpl implements VinhoClient {
 
     private final Gson gson = new Gson();
 
-    private static final HttpClient httpClient =
-            HttpClient.newBuilder().version(HttpClient.Version.HTTP_1_1).connectTimeout(Duration.ofSeconds(10)).build();
+    private final HttpClient httpClient;
+
+    public VinhoClientImpl() {
+        this.httpClient = HttpClient.newBuilder()
+                .version(HttpClient.Version.HTTP_1_1)
+                .connectTimeout(Duration.ofSeconds(10))
+                .build();
+    }
+
+    public VinhoClientImpl(HttpClient httpClient, String uriVinhos) {
+        this.httpClient = httpClient;
+        this.uriVinhos = uriVinhos;
+    }
+
+    public VinhoClientImpl(HttpClient httpClient) {
+        this.httpClient = httpClient;
+    }
 
     @Override
     @Cacheable("recomendacaoDeVinho")
