@@ -59,9 +59,10 @@ public class ClientesServiceImpl implements ClientesService {
     public Optional<VinhoResponseDTO> recomendarVinhoPorTipo(final String cpf) {
         log.debug("Iniciando recomendação de vinho para o CPF: {}", cpf);
 
-        ClientesResponseDTO cliente = clienteClient.clientClientesFieis().stream().filter(c -> cpf.equals(c.getCpf())).findFirst().orElseThrow(() -> {
+        ClientesResponseDTO cliente = clienteClient.clientClientesFieis().stream().filter(
+                c -> cpf.equals(c.getCpf())).findFirst().orElseThrow(() -> {
             log.warn("Cliente não encontrado para CPF: {}", cpf);
-            throw new ClienteNaoEncontradoException(cpf);
+            return new ClienteNaoEncontradoException(cpf);
         });
 
         log.debug("Cliente encontrado: {}", cliente.getNome());

@@ -92,7 +92,7 @@ public class ComprasServiceImpl implements ComprasService {
                 .max(Comparator.comparingDouble(CompraDetalhadaResponseDTO::getValorTotal))
                 .orElseThrow(() -> {
                     log.warn("Nenhuma compra encontrada para o ano: {}", ano);
-                    throw new CompraNaoEncontradaException(ano);
+                    return new CompraNaoEncontradaException(ano);
                 });
     }
 }

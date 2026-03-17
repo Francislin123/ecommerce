@@ -23,7 +23,7 @@ class ClientImplTest {
 
     private ClientImpl clientImpl;
     private HttpClient httpClientMock;
-    private HttpResponse<String> httpResponseMock;
+    private HttpResponse httpResponseMock;
     private String uriClientes;
 
     private final String mockJson = "[{\"nome\":\"João\",\"email\":\"joao@email.com\"}]";
